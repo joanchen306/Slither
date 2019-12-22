@@ -1,6 +1,6 @@
 import pygame
 import random
-import HomeWork2 as hw
+import HomeWork1 as hw
 pygame.init()
 
 width = 1000
