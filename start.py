@@ -122,7 +122,7 @@ def snake(block, snakelist):
 	if direction == "down":
 		head = pygame.transform.rotate(img, 180)	
 
-	else:
+	if direction == "":
 		head = img
 
 	win.blit(head, (snakelist[-1][0], snakelist[-1][1]))
