@@ -1,6 +1,6 @@
 import pygame
 import random
-import HomeWork1 as hw1
+import HomeWork2 as hw
 pygame.init()
 
 width = 1000
@@ -31,7 +31,7 @@ block = 20
 apple = 30
 
 try:
-	FPS = hw1.getSpeed()
+	FPS = hw.getSpeed()
 except:
 	FPS = 3
 
@@ -122,6 +122,9 @@ def snake(block, snakelist):
 	if direction == "down":
 		head = pygame.transform.rotate(img, 180)	
 
+	if direction == "":
+		head = img
+
 	win.blit(head, (snakelist[-1][0], snakelist[-1][1]))
 
 	for XnY in snakelist[:-1]:
@@ -195,22 +198,7 @@ def gameloop():
 			if event.type == pygame.QUIT:
 				g_exit = True
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-					direction = "left"
-					xchange = -block
-					ychange = 0
-				if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-					direction = "right"
-					xchange = block
-					ychange = 0
-				if event.key == pygame.K_UP or event.key == pygame.K_w:
-					direction = "up"
-					xchange = 0
-					ychange = -block
-				if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-					direction = "down"
-					xchange = 0
-					ychange = block
+				direction,xchange,ychange = hw.check_key_pressed(event, block)
 				if event.key == pygame.K_p:
 					pause()	
 
@@ -244,7 +232,7 @@ def gameloop():
 		snake(block, snakelist)
 
 		try:
-			score(hw1.getScore(current_score))
+			score(hw.getScore(current_score))
 		except:
 			score("No Score")
 
@@ -257,14 +245,14 @@ def gameloop():
 				randappleX, randappleY = randapplegen()	
 				pygame.mixer.Sound.play(bite)
 				snakelength += 1
-				current_score = hw1.addScore(current_score)
+				current_score = hw.addScore(current_score)
 
 			elif y + block > randappleY and y + block < randappleY + apple:
 
 				randappleX, randappleY = randapplegen()	
 				pygame.mixer.Sound.play(bite)
 				snakelength += 1
-				current_score = hw1.addScore(current_score)
+				current_score = hw.addScore(current_score)
 
 
 		clock.tick(FPS)	
